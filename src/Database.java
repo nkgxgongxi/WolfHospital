@@ -42,7 +42,7 @@ public class Database {
 		Logger.log("Successfully disconnected from Database.");
 		Logger.log("Goodbye!");
 	}
-	public void create(String tableName, String attributes) {
+	public void create(String tableName, String attributes) throws SQLException {
 		try {
 			stmt = conn.createStatement();
 			String pre = "CREATE TABLE";
@@ -53,8 +53,12 @@ public class Database {
 		}catch(Throwable oops) {
             oops.printStackTrace();
 		}
+		finally {
+			if(stmt != null)
+				stmt.close();
+		}
 	}
-	public void delete(String tableName, String condition) {	
+	public void delete(String tableName, String condition) throws SQLException {	
 		try {
 			stmt = conn.createStatement();
 			String pre = "DELETE FROM";
@@ -64,10 +68,13 @@ public class Database {
 			stmt.executeUpdate(content);	
 		}catch(Throwable oops) {
             oops.printStackTrace();
+		}finally {
+			if(stmt != null)
+				stmt.close();
 		}
 	}
 	
-	public void update(String tableName, String modification, String condition) {
+	public void update(String tableName, String modification, String condition) throws SQLException {
 		try {
 			String content = "UPDATE " + tableName + " SET " + modification + " WHERE " + condition;
 			Logger.log("The operation you are willing to do is:");
@@ -77,10 +84,13 @@ public class Database {
 			
 		}catch(Throwable oops) {
             oops.printStackTrace();
+		}finally {
+			if(stmt != null)
+				stmt.close();
 		}
 	}
 	
-	public void insert(String tableName, String values) {
+	public void insert(String tableName, String values) throws SQLException {
 		try {
 			stmt = conn.createStatement();
 			String prefix = "INSERT INTO";
@@ -93,16 +103,64 @@ public class Database {
 			
 		}catch(Throwable oops) {
             oops.printStackTrace();
+		}finally {
+			if(stmt != null)
+				stmt.close();
 		}
+	}
+	
+	public ResultSet select(String tableName, String col, String condition) throws SQLException {
+		ResultSet res = null;
+		try {
+			stmt = conn.createStatement();
+			String select = "SELECT";
+			String from = " FROM ";
+			String where = " WHERE ";
+			String content = select + " " + col + " " + from + tableName + where + condition;
+			Logger.log("The operation you are willing to do is:");
+			Logger.log(content);
+			res = stmt.executeQuery(content);
+		}catch(Throwable oops) {
+            oops.printStackTrace();
+		}
+		finally {
+			if(stmt != null)
+				stmt.close();
+		}
+		return res; 
+	}
+	
+	public ResultSet select(String tableName, String col) throws SQLException {
+		ResultSet res = null;
+		try {
+			stmt = conn.createStatement();
+			String select = "SELECT";
+			String from = " FROM ";
+			String content = select + " " + col + " " + from + tableName;
+			Logger.log("The operation you are willing to do is:");
+			Logger.log(content);
+			res = stmt.executeQuery(content);
+		}catch(Throwable oops) {
+            oops.printStackTrace();
+		}
+		finally {
+			if(stmt != null)
+				stmt.close();
+		}
+		return res; 
 	}
 	
 	public static void main(String[] args) {
 		Database myDB = Database.getInstance();
 		Logger.init();
 		Tools.printDate();
-		myDB.init("xgong", "gxgongxi");
-		myDB.update("STAFF", "PHONE = '919-802-5887'", "NAME = 'John Terry'");
-		myDB.close();
+		try {
+			myDB.init("xgong", "gxgongxi");
+			myDB.update("STAFF", "PHONE = '919-802-5887'", "NAME = 'John Terry'");
+			myDB.close();
+		}catch(Throwable oops) {
+			oops.printStackTrace();
+		}
 		Tools.printDate();
 	}
 }
