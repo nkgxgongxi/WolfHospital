@@ -1,0 +1,136 @@
+2013/09/10 01:39:09
+
+Successfully connected to Database.
+
+The operation you are willing to do is:
+
+CREATE TABLE Patient( ID INT PRIMARY KEY,SSN NVARCHAR2(13),Name NVARCHAR2(20) NOT NULL,DateofBirth DATE NOT NULL,Gender NVARCHAR2(1) NOT NULL,Age INT,Phone NVARCHAR2(13) NOT NULL,Address NVARCHAR2(40) NOT NULL,Status NVARCHAR2(15) NOT NULL,CHECK (Gender in('M','F')),CHECK (Status IN ('In-treatment', 'In-ward', 'Complete')))
+
+The operation you are willing to do is:
+
+CREATE TABLE Staff( ID INT PRIMARY KEY,Name NVARCHAR2(20) NOT NULL,Age INT,Gender NVARCHAR2(1) NOT NULL,JobTitle NVARCHAR2(10),Phone NVARCHAR2(13) NOT NULL,Address NVARCHAR2(40) NOT NULL,CHECK (Gender IN ('M', 'F')))
+
+The operation you are willing to do is:
+
+CREATE TABLE Doctor( ID INT PRIMARY KEY,ProfessionalTitle NVARCHAR2(20) NOT NULL,Department NVARCHAR2(20),CONSTRAINT Doctor_fk FOREIGN KEY(ID) REFERENCES Staff(ID) ON DELETE CASCADE)
+
+The operation you are willing to do is:
+
+CREATE TABLE Nurse( ID INT PRIMARY KEY,Department NVARCHAR2(20),CONSTRAINT Nurse_fk FOREIGN KEY(ID) REFERENCES Staff(ID) ON DELETE CASCADE)
+
+The operation you are willing to do is:
+
+CREATE TABLE BillingStaff( ID INT PRIMARY KEY,CONSTRAINT BillingStaff_fk FOREIGN KEY(ID) REFERENCES Staff(ID) ON DELETE CASCADE)
+
+The operation you are willing to do is:
+
+CREATE TABLE Ward( WardNum INT PRIMARY KEY,Capacity INT NOT NULL,Charge INT NOT NULL)
+
+The operation you are willing to do is:
+
+CREATE TABLE Bed( BedNum INT, WardNum INT,Available  NVARCHAR2(1) NOT NULL,CONSTRAINT Bed_pk PRIMARY KEY(BedNum,WardNum),CONSTRAINT Bed_fk FOREIGN KEY(WardNum) REFERENCES Ward(WardNum) ON DELETE CASCADE,CHECK (Available IN ('Y','N','R')))
+
+The operation you are willing to do is:
+
+CREATE TABLE CheckIn( PatientID INT,StartDate DATE,BedNum INT NOT NULL,WardNum INT NOT NULL,EndDate DATE,CONSTRAINT CheckIn_pk PRIMARY KEY(PatientID, StartDate),CONSTRAINT CheckIn_PatientID_fk FOREIGN KEY(PatientID) REFERENCES Patient(ID) ON DELETE CASCADE,CONSTRAINT CheckIn_BedNum_fk FOREIGN KEY(WardNum,BedNum) REFERENCES Bed(WardNum,BedNum) ON DELETE CASCADE)
+
+The operation you are willing to do is:
+
+CREATE TABLE BillingAccount( PatientID INT,VisitDate DATE,SSNofSponsor NVARCHAR2(13),PaymentInformation NVARCHAR2(40) NOT NULL,BillingAddress NVARCHAR2(40) NOT NULL,AccommodationFee INT,RegistrationFee INT,MedicationFee INT,CONSTRAINT BillingAcc_pk PRIMARY KEY (PatientID, VisitDate),CONSTRAINT BillingAccount_fk FOREIGN KEY(PatientID, VisitDate) REFERENCES CheckIn(PatientID, StartDate) ON DELETE CASCADE)
+
+The operation you are willing to do is:
+
+CREATE TABLE MedicalRecord( PatientID INT,StartDate DATE,DoctorID INT,Prescription NVARCHAR2(25),Diagnosis NVARCHAR2(25),CONSTRAINT MedicalRecord_pk PRIMARY KEY(PatientID, StartDate, DoctorID),CONSTRAINT MedicalRecord_PatientDate_fk FOREIGN KEY(PatientID) REFERENCES Patient(ID) ON DELETE CASCADE,CONSTRAINT MedicalRecord_Doctor_fk FOREIGN KEY(DoctorID) REFERENCES Doctor(ID) ON DELETE CASCADE)
+
+The operation you are willing to do is:
+
+CREATE TABLE InChargeOf( WardNum INT PRIMARY KEY,NurseID INT NOT NULL,CONSTRAINT InChargeOf_WardNum_fk FOREIGN KEY(WardNum) REFERENCES Ward(WardNum) ON DELETE CASCADE,CONSTRAINT InChargeOf_NurseID_fk FOREIGN KEY(NurseID) REFERENCES Nurse(ID) ON DELETE CASCADE)
+
+The operation you are willing to do is:
+
+INSERT INTO STAFF VALUES(10001, 'John Terry', 48, 'M', 'Doctor', '919-100-2101', '106 Cloverdale Ct, Raleigh NC 27607')
+
+The operation you are willing to do is:
+
+INSERT INTO DOCTOR VALUES(10001, 'Senior Surgeon', 'Oncological Surgery')
+
+The operation you are willing to do is:
+
+INSERT INTO STAFF VALUES(20001, 'Rebecca Johnston', 36, 'F', 'Nurse', '919-853-2744', '1048 Avent Ferry, Raleigh NC 27606')
+
+The operation you are willing to do is:
+
+INSERT INTO NURSE VALUES(20001, 'Senior Nurse')
+
+The operation you are willing to do is:
+
+INSERT INTO STAFF VALUES(30001, 'Michael Smith', 41, 'M', NULL, '866-452-9100', '2734 Timber Dr, Maitland, FL')
+
+The operation you are willing to do is:
+
+INSERT INTO BILLINGSTAFF VALUES(30001)
+
+The operation you are willing to do is:
+
+INSERT INTO PATIENT VALUES(1102140001, '677-22-1134', 'Jason Hunter', '23-MAY-1981', 'M', 30, '919-232-1122', '101 Dormant Dr. Cary, NC', 'In-ward')
+
+The operation you are willing to do is:
+
+INSERT INTO PATIENT VALUES(1103110001, '677-56-4484', 'Michael Romeo', '04-FEB-1971', 'M', 40, '919-383-3388', '404 Reinwood Rd. Durham, NC', 'In-ward')
+
+The operation you are willing to do is:
+
+INSERT INTO WARD VALUES(201, 4, 70)
+
+The operation you are willing to do is:
+
+INSERT INTO INCHARGEOF  VALUES(201, 20001)
+
+The operation you are willing to do is:
+
+INSERT INTO BED VALUES(1, 201, 'Y')
+
+The operation you are willing to do is:
+
+INSERT INTO BED VALUES(2, 201, 'Y')
+
+The operation you are willing to do is:
+
+INSERT INTO BED VALUES(3, 201, 'Y')
+
+The operation you are willing to do is:
+
+INSERT INTO BED VALUES(4, 201, 'Y')
+
+The operation you are willing to do is:
+
+INSERT INTO CHECKIN VALUES(1102140001, '14-FEB-2011', 1, 201, NULL)
+
+The operation you are willing to do is:
+
+UPDATE Bed SET Available = 'N' WHERE BedNum = 1 AND WardNum = 201
+
+The operation you are willing to do is:
+
+INSERT INTO CHECKIN  VALUES(1103110001, '11-MAR-2011', 2, 201, NULL)
+
+The operation you are willing to do is:
+
+UPDATE Bed SET Available = 'N' WHERE BedNum = 2 AND WardNum = 201
+
+The operation you are willing to do is:
+
+INSERT INTO MEDICALRECORD VALUES(1102140001, '14-FEB-2011', 10001, 'Pain Killer', 'Carcinoma')
+
+The operation you are willing to do is:
+
+INSERT INTO MEDICALRECORD VALUES(1103110001, '11-MAR-2011', 10001, 'Pain Killer', 'Lymphoma')
+
+The operation you are willing to do is:
+
+INSERT INTO BILLINGACCOUNT VALUES(1102140001, '14-FEB-2011', '677-22-1134', '101 Dormant Dr. Cary, NC', 'VISA, Credit, 1111-1022-2222-1023', 0, 50, 0)
+
+The operation you are willing to do is:
+
+INSERT INTO BILLINGACCOUNT VALUES(1103110001, '11-MAR-2011', '677-56-4484', '404 Reinwood Rd. Durham, NC', 'VISA, Credit, 2222-1111-0011-1133', 0, 50, 0)
+

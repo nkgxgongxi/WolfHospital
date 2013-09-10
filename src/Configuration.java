@@ -1,4 +1,4 @@
-import java.sql.*;
+//import java.sql.*;
 
 public class Configuration {
 	public static final String jdbcURL = "jdbc:oracle:thin:@localhost:1521:XE";

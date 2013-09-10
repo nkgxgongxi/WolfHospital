@@ -1,0 +1,10 @@
+PatientID INT,
+VisitDate DATE,
+SSNofSponsor NVARCHAR2(13),
+PaymentInformation NVARCHAR2(40) NOT NULL,
+BillingAddress NVARCHAR2(40) NOT NULL,
+AccommodationFee INT,
+RegistrationFee INT,
+MedicationFee INT,
+CONSTRAINT BillingAcc_pk PRIMARY KEY (PatientID, VisitDate),
+CONSTRAINT BillingAccount_fk FOREIGN KEY(PatientID, VisitDate) REFERENCES CheckIn(PatientID, StartDate) ON DELETE CASCADE

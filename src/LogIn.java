@@ -8,6 +8,7 @@ public class LogIn extends JFrame implements ActionListener{
 	JPanel myPanel;
 	JLabel label1, label2;
 	final JTextField text1, text2;
+	static int counter = 0;
 	LogIn(){
 		label1 = new JLabel();
 		label1.setText("Username:");
@@ -28,6 +29,7 @@ public class LogIn extends JFrame implements ActionListener{
 		add(myPanel, BorderLayout.CENTER);
 		submit.addActionListener(this);
 		setTitle("LOGIN");
+		counter++;
 	}
 
 	public void actionPerformed(ActionEvent arg0){
@@ -46,6 +48,8 @@ public class LogIn extends JFrame implements ActionListener{
 		else{
 			JOptionPane.showMessageDialog(this, "Incorrect login or password", 
 					"Error", JOptionPane.ERROR_MESSAGE);
+			if(counter < 3)
+				new LogIn();
 		}
 	}
 }

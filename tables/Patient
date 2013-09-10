@@ -1,0 +1,11 @@
+ID INT PRIMARY KEY,
+SSN NVARCHAR2(13),
+Name NVARCHAR2(20) NOT NULL,
+DateofBirth DATE NOT NULL,
+Gender NVARCHAR2(1) NOT NULL,
+Age INT,
+Phone NVARCHAR2(13) NOT NULL,
+Address NVARCHAR2(40) NOT NULL,
+Status NVARCHAR2(15) NOT NULL,
+CHECK (Gender in('M','F')),
+CHECK (Status IN ('In-treatment', 'In-ward', 'Complete'))

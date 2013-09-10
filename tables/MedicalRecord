@@ -1,0 +1,8 @@
+PatientID INT,
+StartDate DATE,
+DoctorID INT,
+Prescription NVARCHAR2(25),
+Diagnosis NVARCHAR2(25),
+CONSTRAINT MedicalRecord_pk PRIMARY KEY(PatientID, StartDate, DoctorID),
+CONSTRAINT MedicalRecord_PatientDate_fk FOREIGN KEY(PatientID) REFERENCES Patient(ID) ON DELETE CASCADE,
+CONSTRAINT MedicalRecord_Doctor_fk FOREIGN KEY(DoctorID) REFERENCES Doctor(ID) ON DELETE CASCADE

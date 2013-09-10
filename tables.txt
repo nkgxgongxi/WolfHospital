@@ -1,0 +1,11 @@
+Patient
+Staff
+Doctor
+Nurse
+BillingStaff
+Ward
+Bed
+CheckIn
+BillingAccount
+MedicalRecord
+InChargeOf

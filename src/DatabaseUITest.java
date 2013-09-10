@@ -1,4 +1,4 @@
-import java.awt.*;
+//import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -14,7 +14,7 @@ public class DatabaseUITest extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0){
-				InputDialog query = new InputDialog(DatabaseUITest.this, "Username:");
+//				InputDialog query = new InputDialog(DatabaseUITest.this, "Username:");
 			}
 		});
 		myFrame.add(myStart);

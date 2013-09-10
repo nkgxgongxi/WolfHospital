@@ -1,0 +1,5 @@
+BedNum INT, WardNum INT,
+Available  NVARCHAR2(1) NOT NULL,
+CONSTRAINT Bed_pk PRIMARY KEY(BedNum,WardNum),
+CONSTRAINT Bed_fk FOREIGN KEY(WardNum) REFERENCES Ward(WardNum) ON DELETE CASCADE,
+CHECK (Available IN ('Y','N','R'))

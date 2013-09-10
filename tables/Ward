@@ -1,0 +1,3 @@
+WardNum INT PRIMARY KEY,
+Capacity INT NOT NULL,
+Charge INT NOT NULL
