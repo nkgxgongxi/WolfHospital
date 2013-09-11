@@ -1,119 +1,76 @@
-import java.io.BufferedReader;
+import java.util.Scanner;
 import java.io.InputStreamReader;
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
-
 
 public class MedicalRecord implements Operable {
-	public void update(Database myDB, boolean isTest) throws SQLException {
-			BufferedReader buf = new BufferedReader (new InputStreamReader (System.in));
-			if(isTest) {
-				System.out.println("Update a medical record of a test.");
-				System.out.println("Entering the index information for the test record:");
-			}
-	        System.out.println("Paitnet ID");
-	        String pid = buf.readLine();
-	        System.out.println("Start Date in dd-MMM-yyyy");
-	        String stadate = buf.readLine();
-	        System.out.println("Doctor ID");
-	        String docid = buf.readLine();
-	        System.out.println("now enter the new values:");
-	        if
-	        System.out.println("Prescription");
-	        String presc = buf.readLine();
-	        System.out.println("Diagnosis");
-	        String diagn = buf.readLine();
-	        String sql = "UPDATE MedicalRecord SET Prescription = '" + presc + "' ,Diagnosis = '" + diagn + "' WHERE PatientID = " + pid + " AND DoctorID = " + docid +" AND StartDate = '" + stadate +"'";
-	        System.out.println(sql);
-	        return sql;
-	        
-	        BufferedReader buf = new BufferedReader (new InputStreamReader (System.in));
-	        System.out.println("Now update a medical record of a test.");
+	static boolean isTest;
+	static String tableName = "MedicalRecord";
+	public void update(Database myDB) throws SQLException {
+		Scanner buf = new Scanner (new InputStreamReader (System.in));
+		if(isTest) {
+			System.out.println("Update a medical record of a test.");
+			System.out.println("Entering the index information for the test record:");
+		}
+		else {
+			System.out.println("Update a medical record of a test.");
 	        System.out.println("Entering the index information for the dest record:");
-	        System.out.println("Paitnet ID");
-	        String pid = buf.readLine();
-	        System.out.println("Start Date in dd-MMM-yyyy");
-	        String stadate = buf.readLine();
-	        System.out.println("Doctor ID");
-	        String docid = buf.readLine();
-	        System.out.println("now enter the new values:");
-	        System.out.println("Diagnosis");
-	        String diagn = buf.readLine();
-	        String sql = "UPDATE MedicalRecord SET Diagnosis = '" + diagn + "' WHERE PatientID = " + pid + " AND DoctorID = " + docid +" AND StartDate = '" + stadate +"'";
-	        return sql;
-    
-	    }
+		}
+        System.out.println("Paitnet ID");
+        String pid = buf.nextLine();
+        System.out.println("Start Date in dd-MMM-yyyy");
+        String stadate = buf.nextLine();
+        System.out.println("Doctor ID");
+        String docid = buf.nextLine();
+        System.out.println("now enter the new values:");
+        String presc = "";
+        if(!isTest) {
+        	System.out.println("Prescription");
+        	 presc = buf.nextLine();
+        }
+        System.out.println("Diagnosis");
+        String diagn = buf.nextLine();
+        String value;
+        if(isTest)
+        	value = "Diagnosis = '" + diagn + "'";
+        else
+        	value = "Prescription = '" + presc + "' ,Diagnosis = '" + diagn + "'";
+        String condition = "PatientID = " + pid + " AND DoctorID = " + docid +" AND StartDate = '" + stadate +"'";
+        myDB.update(tableName, value, condition);
+        buf.close();
 	}
-	// Enter a new medical record for each treatment
-	// SQL> INSERT INTO MedicalRecord(PatientID, StartDate, DoctorID, Prescription, Diagnosis) values (1, '03-MAR-11', 3, 'Pills', 'Flu');
-	public void  insert(Database myDB, boolean isTest) throws SQLException {
-	    try
-	    {
-	        //buffer
-	        BufferedReader buf = new BufferedReader (new InputStreamReader (System.in));
-	        System.out.println("Entering a new medical record for this TREATMENT:");
-	        System.out.println("values in the format like below:");
-	        System.out.println("PatientID, 'StartDate in dd-MMM-yyyy', DoctorID, 'Prescription', 'Diagnosis'");
-	        String values = buf.readLine ();
-	        String sql = "INSERT INTO MedicalRecord(PatientID, StartDate, DoctorID, Prescription, Diagnosis) values (" + values + ")";
-	        return sql;
-	    }
-	    catch(Throwable oops)
-	    {
-	        oops.printStackTrace();
-	        return "oops!!";
-	    }
-
+	public void insert(Database myDB) throws SQLException {
+		Scanner buf = new Scanner (new InputStreamReader (System.in));
+        System.out.println("Entering a new medical record for this TREATMENT:");
+        System.out.println("values in the format like below:");
+        if(!isTest) {
+        	System.out.println("PatientID, 'StartDate in dd-MMM-yyyy', DoctorID, 'Prescription', 'Diagnosis'");
+        }
+        else {
+            System.out.println("PatientID, 'StartDate in dd-MMM-yyyy', DoctorID, 'Diagnosis'");
+        }
+        String values = buf.nextLine ();
+        String tName = "MedicalRecord(PatientID, StartDate, DoctorID, Prescription, Diagnosis)";
+        myDB.insert(tName, values);
+        buf.close();
 	}
-	//Update a new medical record for each treatment
-	//SQL> UPDATE MedicalRecord SET Prescription='Shot; Shot', Diagnosis='Flu; Flu' WHERE PatientID=1 AND StartDate='03-MAR-11' AND DoctorID=1;
-	static String update_treatment_medrecord()
-	{
-	    try
-	    {
-	        //buffer
-	        
-	    }
-	    catch(Throwable oops)
-	    {
-	        oops.printStackTrace();
-	        return "oops!!";
-	    }
+	
+	public void insertTest(Database myDB) throws SQLException {
+		isTest = true;
+		insert(myDB);
 	}
-	// Enter a new medical record for each test
-	// SQL> INSERT INTO MedicalRecord(PatientID, StartDate, DoctorID, Diagnosis) values (1, '03-MAR-11', 2, 'Normal');
-	static String new_test_medrecord()
-	{
-	    try
-	    {
-	        //buffer
-	        BufferedReader buf = new BufferedReader (new InputStreamReader (System.in));
-	        System.out.println("Entering a new medical record for this TEST:");
-	        System.out.println("values in the format like below:");
-	        System.out.println("PatientID, 'StartDate in dd-MMM-yyyy', DoctorID, 'Diagnosis'");
-	        String values = buf.readLine ();
-	        return "INSERT INTO MedicalRecord(PatientID, StartDate, DoctorID, Diagnosis) values (" + values + ")";
-	    }
-	    catch(Throwable oops)
-	    {
-	        oops.printStackTrace();
-	        return "oops!!";
-	    }
+	
+	public void updateTest(Database myDB) throws SQLException {
+		isTest = true;
+		update(myDB);
 	}
-	//Update a new medical record for each test
-	//SQL> UPDATE MedicalRecord SET Diagnosis='Neutropenia' WHERE patientID=1 AND StartDate='03-MAR-11' AND DoctorID=2;
-	static String update_test_medrecord()
-	{
-	    try
-	    {
-	        //buffer
-	        
-	    }
-	    catch(Throwable oops)
-	    {
-	        oops.printStackTrace();
-	        return "oops!!";
-	    }
+	
+	public void insertTreatment(Database myDB) throws SQLException {
+		isTest = false;
+		insert(myDB);
+	}
+	
+	public void updateTreatment(Database myDB) throws SQLException {
+		isTest = false;
+		update(myDB);
 	}
 }
