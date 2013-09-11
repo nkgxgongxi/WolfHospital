@@ -3,7 +3,7 @@ import java.sql.*;
 import java.util.*;
 
 public class WolfHos {
-	static void create(Database myDB, ArrayList<String> tables) {
+	static void create(Database myDB, ArrayList<String> tables) throws SQLException {
 		try {
 			for(String t : tables) {
 				Scanner s = new Scanner(new FileReader("tables/" + t));
@@ -15,38 +15,31 @@ public class WolfHos {
 			}
 		}catch(IOException e) {
 			e.printStackTrace();
-		}catch(Throwable oops) {
-			oops.printStackTrace();
 		}
 	}
 	static void init(Database myDB) throws SQLException {
-        try {
-        	
-                myDB.insert("STAFF", "10001, 'John Terry', 48, 'M', 'Doctor', '919-100-2101', '106 Cloverdale Ct, Raleigh NC 27607'");
-                myDB.insert("DOCTOR", "10001, 'Senior Surgeon', 'Oncological Surgery'");
-                myDB.insert("STAFF", "20001, 'Rebecca Johnston', 36, 'F', 'Nurse', '919-853-2744', '1048 Avent Ferry, Raleigh NC 27606'");
-                myDB.insert("NURSE", "20001, 'Senior Nurse'");
-                myDB.insert("STAFF", "30001, 'Michael Smith', 41, 'M', NULL, '866-452-9100', '2734 Timber Dr, Maitland, FL'");
-                myDB.insert("BILLINGSTAFF", "30001");
-                myDB.insert("PATIENT", "1102140001, '677-22-1134', 'Jason Hunter', '23-MAY-1981', 'M', 30, '919-232-1122', '101 Dormant Dr. Cary, NC', 'In-ward'");
-                myDB.insert("PATIENT", "1103110001, '677-56-4484', 'Michael Romeo', '04-FEB-1971', 'M', 40, '919-383-3388', '404 Reinwood Rd. Durham, NC', 'In-ward'");
-                myDB.insert("WARD", "201, 4, 70");
-                myDB.insert("INCHARGEOF ", "201, 20001");
-                myDB.insert("BED", "1, 201, 'Y'");
-                myDB.insert("BED", "2, 201, 'Y'");
-                myDB.insert("BED", "3, 201, 'Y'");
-                myDB.insert("BED", "4, 201, 'Y'");
-                myDB.insert("CHECKIN", "1102140001, '14-FEB-2011', 1, 201, NULL");
-                myDB.update("Bed", "Available = 'N'", "BedNum = 1 AND WardNum = 201");
-                myDB.insert("CHECKIN ", "1103110001, '11-MAR-2011', 2, 201, NULL");
-                myDB.update("Bed", "Available = 'N'", "BedNum = 2 AND WardNum = 201");
-                myDB.insert("MEDICALRECORD", "1102140001, '14-FEB-2011', 10001, 'Pain Killer', 'Carcinoma'");
-                myDB.insert("MEDICALRECORD", "1103110001, '11-MAR-2011', 10001, 'Pain Killer', 'Lymphoma'");
-                myDB.insert("BILLINGACCOUNT", "1102140001, '14-FEB-2011', '677-22-1134', '101 Dormant Dr. Cary, NC', 'VISA, Credit, 1111-1022-2222-1023', 0, 50, 0");
-                myDB.insert("BILLINGACCOUNT", "1103110001, '11-MAR-2011', '677-56-4484', '404 Reinwood Rd. Durham, NC', 'VISA, Credit, 2222-1111-0011-1133', 0, 50, 0");
-        }catch(Throwable oops) {
-        	oops.printStackTrace();
-        }
+		
+		try {
+			Scanner s = new Scanner(new FileReader("init/inserts.txt"));
+			while(s.hasNextLine()) {
+				String input = s.nextLine();
+				String tName = input.split(": ")[0];
+				String value = input.split(": ")[1];
+				myDB.insert(tName, value);
+			}
+			s.close();
+			Scanner s2 = new Scanner(new FileReader("init/updates.txt"));
+			while(s2.hasNextLine()) {
+				String input2 = s2.nextLine();
+				String tName2 = input2.split(": ")[0];
+				String setValue = input2.split(": ")[1];
+				String condition = input2.split(": ")[2];
+				myDB.update(tName2, setValue, condition);
+			}
+			s2.close();
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public static ArrayList<String> getTableList(String configuration) {

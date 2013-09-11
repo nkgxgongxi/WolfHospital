@@ -3,6 +3,10 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class DatabaseUITest extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4L;
 	JFrame myFrame;
 	JMenuItem myStart;
 	public DatabaseUITest(String Title){

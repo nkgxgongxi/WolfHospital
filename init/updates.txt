@@ -1,0 +1,2 @@
+Bed: Available = 'N': BedNum = 1 AND WardNum = 201
+Bed: Available = 'N': BedNum = 2 AND WardNum = 201

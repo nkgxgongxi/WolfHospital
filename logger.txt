@@ -1,4 +1,4 @@
-2013/09/10 01:39:09
+2013/09/11 09:40:27
 
 Successfully connected to Database.
 
@@ -48,23 +48,23 @@ CREATE TABLE InChargeOf( WardNum INT PRIMARY KEY,NurseID INT NOT NULL,CONSTRAINT
 
 The operation you are willing to do is:
 
-INSERT INTO STAFF VALUES(10001, 'John Terry', 48, 'M', 'Doctor', '919-100-2101', '106 Cloverdale Ct, Raleigh NC 27607')
+INSERT INTO STAFF VALUES(10001,'John Terry',48,'M','Doctor','919-100-2101','106 Cloverdale Ct,Raleigh NC 27607')
 
 The operation you are willing to do is:
 
-INSERT INTO DOCTOR VALUES(10001, 'Senior Surgeon', 'Oncological Surgery')
+INSERT INTO DOCTOR VALUES(10001,'Senior Surgeon','Oncological Surgery')
 
 The operation you are willing to do is:
 
-INSERT INTO STAFF VALUES(20001, 'Rebecca Johnston', 36, 'F', 'Nurse', '919-853-2744', '1048 Avent Ferry, Raleigh NC 27606')
+INSERT INTO STAFF VALUES(20001,'Rebecca Johnston',36,'F','Nurse','919-853-2744','1048 Avent Ferry,Raleigh NC 27606')
 
 The operation you are willing to do is:
 
-INSERT INTO NURSE VALUES(20001, 'Senior Nurse')
+INSERT INTO NURSE VALUES(20001,'Senior Nurse')
 
 The operation you are willing to do is:
 
-INSERT INTO STAFF VALUES(30001, 'Michael Smith', 41, 'M', NULL, '866-452-9100', '2734 Timber Dr, Maitland, FL')
+INSERT INTO STAFF VALUES(30001,'Michael Smith',41,'M',NULL,'866-452-9100','2734 Timber Dr,Maitland,FL')
 
 The operation you are willing to do is:
 
@@ -72,39 +72,59 @@ INSERT INTO BILLINGSTAFF VALUES(30001)
 
 The operation you are willing to do is:
 
-INSERT INTO PATIENT VALUES(1102140001, '677-22-1134', 'Jason Hunter', '23-MAY-1981', 'M', 30, '919-232-1122', '101 Dormant Dr. Cary, NC', 'In-ward')
+INSERT INTO PATIENT VALUES(1102140001,'677-22-1134','Jason Hunter','23-MAY-1981','M',30,'919-232-1122','101 Dormant Dr. Cary,NC','In-ward')
 
 The operation you are willing to do is:
 
-INSERT INTO PATIENT VALUES(1103110001, '677-56-4484', 'Michael Romeo', '04-FEB-1971', 'M', 40, '919-383-3388', '404 Reinwood Rd. Durham, NC', 'In-ward')
+INSERT INTO PATIENT VALUES(1103110001,'677-56-4484','Michael Romeo','04-FEB-1971','M',40,'919-383-3388','404 Reinwood Rd. Durham,NC','In-ward')
 
 The operation you are willing to do is:
 
-INSERT INTO WARD VALUES(201, 4, 70)
+INSERT INTO WARD VALUES(201,4,70)
 
 The operation you are willing to do is:
 
-INSERT INTO INCHARGEOF  VALUES(201, 20001)
+INSERT INTO INCHARGEOF  VALUES(201,20001)
 
 The operation you are willing to do is:
 
-INSERT INTO BED VALUES(1, 201, 'Y')
+INSERT INTO BED VALUES(1,201,'Y')
 
 The operation you are willing to do is:
 
-INSERT INTO BED VALUES(2, 201, 'Y')
+INSERT INTO BED VALUES(2,201,'Y')
 
 The operation you are willing to do is:
 
-INSERT INTO BED VALUES(3, 201, 'Y')
+INSERT INTO BED VALUES(3,201,'Y')
 
 The operation you are willing to do is:
 
-INSERT INTO BED VALUES(4, 201, 'Y')
+INSERT INTO BED VALUES(4,201,'Y')
 
 The operation you are willing to do is:
 
-INSERT INTO CHECKIN VALUES(1102140001, '14-FEB-2011', 1, 201, NULL)
+INSERT INTO CHECKIN VALUES(1102140001,'14-FEB-2011',1,201,NULL)
+
+The operation you are willing to do is:
+
+INSERT INTO CHECKIN  VALUES(1103110001,'11-MAR-2011',2,201,NULL)
+
+The operation you are willing to do is:
+
+INSERT INTO MEDICALRECORD VALUES(1102140001,'14-FEB-2011',10001,'Pain Killer','Carcinoma')
+
+The operation you are willing to do is:
+
+INSERT INTO MEDICALRECORD VALUES(1103110001,'11-MAR-2011',10001,'Pain Killer','Lymphoma')
+
+The operation you are willing to do is:
+
+INSERT INTO BILLINGACCOUNT VALUES(1102140001,'14-FEB-2011','677-22-1134','101 Dormant Dr. Cary,NC','VISA,Credit,1111-1022-2222-1023',0,50,0)
+
+The operation you are willing to do is:
+
+INSERT INTO BILLINGACCOUNT VALUES(1103110001,'11-MAR-2011','677-56-4484','404 Reinwood Rd. Durham,NC','VISA,Credit,2222-1111-0011-1133',0,50,0)
 
 The operation you are willing to do is:
 
@@ -112,25 +132,5 @@ UPDATE Bed SET Available = 'N' WHERE BedNum = 1 AND WardNum = 201
 
 The operation you are willing to do is:
 
-INSERT INTO CHECKIN  VALUES(1103110001, '11-MAR-2011', 2, 201, NULL)
-
-The operation you are willing to do is:
-
 UPDATE Bed SET Available = 'N' WHERE BedNum = 2 AND WardNum = 201
-
-The operation you are willing to do is:
-
-INSERT INTO MEDICALRECORD VALUES(1102140001, '14-FEB-2011', 10001, 'Pain Killer', 'Carcinoma')
-
-The operation you are willing to do is:
-
-INSERT INTO MEDICALRECORD VALUES(1103110001, '11-MAR-2011', 10001, 'Pain Killer', 'Lymphoma')
-
-The operation you are willing to do is:
-
-INSERT INTO BILLINGACCOUNT VALUES(1102140001, '14-FEB-2011', '677-22-1134', '101 Dormant Dr. Cary, NC', 'VISA, Credit, 1111-1022-2222-1023', 0, 50, 0)
-
-The operation you are willing to do is:
-
-INSERT INTO BILLINGACCOUNT VALUES(1103110001, '11-MAR-2011', '677-56-4484', '404 Reinwood Rd. Durham, NC', 'VISA, Credit, 2222-1111-0011-1133', 0, 50, 0)
 

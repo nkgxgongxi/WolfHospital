@@ -6,6 +6,10 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class InputDialog extends JDialog{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2L;
 	private DatabaseUITest myFrame;
 	private JLabel title;
 	private JTextField input;
@@ -30,7 +34,7 @@ public class InputDialog extends JDialog{
 	}
 	
 	public void addListener(){
-		QueryListener ql = new QueryListener();
+//		QueryListener ql = new QueryListener();
 	}
 	public class QueryListener implements ActionListener{
 

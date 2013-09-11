@@ -1,9 +1,13 @@
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.*;
+//import java.sql.*;
 import javax.swing.*;
 
 public class LogIn extends JFrame implements ActionListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	JButton submit;
 	JPanel myPanel;
 	JLabel label1, label2;

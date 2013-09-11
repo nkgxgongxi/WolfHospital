@@ -6,45 +6,48 @@ import java.sql.Statement;
 
 
 public class MedicalRecord implements Operable {
-	static private int jdbc_update_medicalrecord(Connection connection, String str) throws SQLException
-	{
-	    Statement statement = null;
-	    try
-	    {
-	        statement = connection.createStatement();
-	        int result = statement.executeUpdate(str);
-	        if(result != 0)
-	        {
-	            if(result ==1)
-	            {
-	                System.out.println("1 row insert success!");
-	            }
-	            else
-	            {
-	                System.out.println(result+" rows insert success!");
-	            }
-	        }
-	        else
-	        {
-	            System.out.println("error no row insert!");
-	        }
+	public void update(Database myDB, boolean isTest) throws SQLException {
+			BufferedReader buf = new BufferedReader (new InputStreamReader (System.in));
+			if(isTest) {
+				System.out.println("Update a medical record of a test.");
+				System.out.println("Entering the index information for the test record:");
+			}
+	        System.out.println("Paitnet ID");
+	        String pid = buf.readLine();
+	        System.out.println("Start Date in dd-MMM-yyyy");
+	        String stadate = buf.readLine();
+	        System.out.println("Doctor ID");
+	        String docid = buf.readLine();
+	        System.out.println("now enter the new values:");
+	        if
+	        System.out.println("Prescription");
+	        String presc = buf.readLine();
+	        System.out.println("Diagnosis");
+	        String diagn = buf.readLine();
+	        String sql = "UPDATE MedicalRecord SET Prescription = '" + presc + "' ,Diagnosis = '" + diagn + "' WHERE PatientID = " + pid + " AND DoctorID = " + docid +" AND StartDate = '" + stadate +"'";
+	        System.out.println(sql);
+	        return sql;
+	        
+	        BufferedReader buf = new BufferedReader (new InputStreamReader (System.in));
+	        System.out.println("Now update a medical record of a test.");
+	        System.out.println("Entering the index information for the dest record:");
+	        System.out.println("Paitnet ID");
+	        String pid = buf.readLine();
+	        System.out.println("Start Date in dd-MMM-yyyy");
+	        String stadate = buf.readLine();
+	        System.out.println("Doctor ID");
+	        String docid = buf.readLine();
+	        System.out.println("now enter the new values:");
+	        System.out.println("Diagnosis");
+	        String diagn = buf.readLine();
+	        String sql = "UPDATE MedicalRecord SET Diagnosis = '" + diagn + "' WHERE PatientID = " + pid + " AND DoctorID = " + docid +" AND StartDate = '" + stadate +"'";
+	        return sql;
+    
 	    }
-	    catch(Throwable oops)
-	    {
-	        oops.printStackTrace();
-	        System.out.println("error no row insert!");
-	        return 0;
-	    }
-	    finally
-	    {
-	        statement.close();
-	    }
-	    return 1;
 	}
 	// Enter a new medical record for each treatment
 	// SQL> INSERT INTO MedicalRecord(PatientID, StartDate, DoctorID, Prescription, Diagnosis) values (1, '03-MAR-11', 3, 'Pills', 'Flu');
-	static String new_treatment_medrecord()
-	{
+	public void  insert(Database myDB, boolean isTest) throws SQLException {
 	    try
 	    {
 	        //buffer
@@ -70,23 +73,7 @@ public class MedicalRecord implements Operable {
 	    try
 	    {
 	        //buffer
-	        BufferedReader buf = new BufferedReader (new InputStreamReader (System.in));
-	        System.out.println("Update a medical record of a treatment.");
-	        System.out.println("Entering the index information for the dest record:");
-	        System.out.println("Paitnet ID");
-	        String pid = buf.readLine();
-	        System.out.println("Start Date in dd-MMM-yyyy");
-	        String stadate = buf.readLine();
-	        System.out.println("Doctor ID");
-	        String docid = buf.readLine();
-	        System.out.println("now enter the new values:");
-	        System.out.println("Prescription");
-	        String presc = buf.readLine();
-	        System.out.println("Diagnosis");
-	        String diagn = buf.readLine();
-	        String sql = "UPDATE MedicalRecord SET Prescription = '" + presc + "' ,Diagnosis = '" + diagn + "' WHERE PatientID = " + pid + " AND DoctorID = " + docid +" AND StartDate = '" + stadate +"'";
-	        System.out.println(sql);
-	        return sql;
+	        
 	    }
 	    catch(Throwable oops)
 	    {
@@ -121,20 +108,7 @@ public class MedicalRecord implements Operable {
 	    try
 	    {
 	        //buffer
-	        BufferedReader buf = new BufferedReader (new InputStreamReader (System.in));
-	        System.out.println("Now update a medical record of a test.");
-	        System.out.println("Entering the index information for the dest record:");
-	        System.out.println("Paitnet ID");
-	        String pid = buf.readLine();
-	        System.out.println("Start Date in dd-MMM-yyyy");
-	        String stadate = buf.readLine();
-	        System.out.println("Doctor ID");
-	        String docid = buf.readLine();
-	        System.out.println("now enter the new values:");
-	        System.out.println("Diagnosis");
-	        String diagn = buf.readLine();
-	        String sql = "UPDATE MedicalRecord SET Diagnosis = '" + diagn + "' WHERE PatientID = " + pid + " AND DoctorID = " + docid +" AND StartDate = '" + stadate +"'";
-	        return sql;
+	        
 	    }
 	    catch(Throwable oops)
 	    {
